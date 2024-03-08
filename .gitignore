@@ -1,0 +1,8 @@
+virt
+.env
+
+.idea
+.vscode
+_pycache_/
+*.py[cod]
+*.so
