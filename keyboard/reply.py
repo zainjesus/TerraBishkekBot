@@ -35,6 +35,3 @@ cancel = ReplyKeyboardMarkup(
 )
 
 
-rmk = ReplyKeyboardMarkup(
-    keyboard=[[]]
-)

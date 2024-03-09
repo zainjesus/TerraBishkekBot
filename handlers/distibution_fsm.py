@@ -4,9 +4,10 @@ from aiogram.types import Message
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
-from keyboard.reply import distribution_submit, distribution_photo, cancel, rmk
+from keyboard.reply import distribution_submit, distribution_photo, cancel
 from database.db import sql_command_all
 from config import ADMIN
+from aiogram.types import Message, ReplyKeyboardRemove
 
 
 
@@ -66,7 +67,7 @@ async def submit(message: Message, state: FSMContext):
         user_message = data.get('message')
         user_photo_or_video = data.get('photo_or_video')
         users = await sql_command_all()
-        await bot.send_message(message.from_user.id, "Сообщение успешно разослано!", reply_markup=rmk)
+        await bot.send_message(message.from_user.id, "Сообщение успешно разослано!", reply_markup=ReplyKeyboardRemove())
         await state.clear()
         for i in users:
             if user_photo_or_video:
@@ -77,7 +78,7 @@ async def submit(message: Message, state: FSMContext):
             else:
                 await bot.send_message(i, user_message)
     elif message.text == "ОТМЕНИТЬ":
-        await bot.send_message(message.from_user.id, "Рассылка отменена!", reply_markup=rmk)
+        await bot.send_message(message.from_user.id, "Рассылка отменена!", reply_markup=ReplyKeyboardRemove())
         await state.clear()
     else:
-        await bot.send_message(message.from_user.id, 'Нажмите "ДАЛЕЕ" или "ОТМЕНИТЬ"', reply_markup=rmk)
+        await bot.send_message(message.from_user.id, 'Нажмите "ДАЛЕЕ" или "ОТМЕНИТЬ"')
