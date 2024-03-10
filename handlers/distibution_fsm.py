@@ -70,13 +70,17 @@ async def submit(message: Message, state: FSMContext):
         await bot.send_message(message.from_user.id, "Сообщение успешно разослано!", reply_markup=ReplyKeyboardRemove())
         await state.clear()
         for i in users:
-            if user_photo_or_video:
-                try:
-                    await bot.send_photo(i, photo=user_photo_or_video, caption=user_message)
-                except:
-                    await bot.send_video(i, video=user_photo_or_video, caption=user_message)
-            else:
-                await bot.send_message(i, user_message)
+            try:
+                if user_photo_or_video:
+                    try:
+                        await bot.send_photo(i, photo=user_photo_or_video, caption=user_message)
+                    except:
+                        await bot.send_video(i, video=user_photo_or_video, caption=user_message)
+                else:
+                    await bot.send_message(i, user_message)
+            except Exception as e:
+                print(f"Error sending message to user {i}: {e}")
+                continue
     elif message.text == "ОТМЕНИТЬ":
         await bot.send_message(message.from_user.id, "Рассылка отменена!", reply_markup=ReplyKeyboardRemove())
         await state.clear()
