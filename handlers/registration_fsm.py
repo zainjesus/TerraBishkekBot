@@ -28,23 +28,23 @@ async def reg(call: CallbackQuery, state: FSMContext):
     usernames = [row[1] for row in data] 
     print(usernames)
     if call.from_user.username is None:
-        # Проверка
         await bot.send_message(call.from_user.id, "Чтобы зарегестрироваться на мероприятие, у вас должен быть включен ник в телеграм!")
-    if f'@{call.from_user.username}' in usernames:
-        indexes = [i for i, username in enumerate(usernames) if username == f'@{call.from_user.username}']
-        index = indexes[-1]
-        user_data = data[index]  
-
-        print(user_data)
-        await bot.send_message(call.message.chat.id, f'Вы уже зарегистрированы! Ваши данные:\n'
-                                                     f'Имя: {user_data[0]}\n'
-                                                     f'Номер телефона: {user_data[2]}\n'
-                                                     f'Ниша: {user_data[3]}\n\n'
-                                                     'Все верно?', reply_markup=reg_ik)  
     else:
-        await state.set_state(Registraion.name)
-        await bot.send_message(call.message.chat.id, 'Для регистрации нужно ответить всего на 3 вопроса')
-        await bot.send_message(call.message.chat.id, '1️⃣ Напишите свою Фамилию и Имя (Пример: Иванов Иван)')
+        if f'@{call.from_user.username}' in usernames:
+            indexes = [i for i, username in enumerate(usernames) if username == f'@{call.from_user.username}']
+            index = indexes[-1]
+            user_data = data[index]  
+
+            print(user_data)
+            await bot.send_message(call.message.chat.id, f'Вы уже зарегистрированы! Ваши данные:\n'
+                                                        f'Имя: {user_data[0]}\n'
+                                                        f'Номер телефона: {user_data[2]}\n'
+                                                        f'Ниша: {user_data[3]}\n\n'
+                                                        'Все верно?', reply_markup=reg_ik)  
+        else:
+            await state.set_state(Registraion.name)
+            await bot.send_message(call.message.chat.id, 'Для регистрации нужно ответить всего на 3 вопроса')
+            await bot.send_message(call.message.chat.id, '1️⃣ Напишите свою Фамилию и Имя (Пример: Иванов Иван)')
 
 
 @router.callback_query(F.data.startswith('reapet_reg'))
