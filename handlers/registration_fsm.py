@@ -28,7 +28,7 @@ async def reg(call: CallbackQuery, state: FSMContext):
     usernames = [row[1] for row in data] 
     print(usernames)
     if call.from_user.username is None:
-        await bot.send_message(call.from_user.id, "Чтобы зарегестрироваться на мероприятие, у вас должен быть включен ник в телеграм!")
+        await bot.send_message(call.from_user.id, "Чтобы зарегистрироваться на мероприятие, у вас должен быть включен ник в телеграм!")
     else:
         if f'@{call.from_user.username}' in usernames:
             indexes = [i for i, username in enumerate(usernames) if username == f'@{call.from_user.username}']
