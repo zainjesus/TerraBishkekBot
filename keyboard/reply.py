@@ -41,7 +41,8 @@ gender_kb = ReplyKeyboardMarkup(
             KeyboardButton(text='Мужской'),
             KeyboardButton(text='Женский')
         ]
-    ]
+    ],
+    resize_keyboard=True
 )
 
 
