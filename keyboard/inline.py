@@ -7,7 +7,7 @@ start_ik = InlineKeyboardMarkup(
             InlineKeyboardButton(text='Что такое Терра? 🗂', callback_data='wit')
         ],
         [
-            InlineKeyboardButton(text='Зарегистрироваться', callback_data='reg')
+            InlineKeyboardButton(text='Зарегистрироваться на 9 поток', callback_data='reg')
         ],
         [
             InlineKeyboardButton(text='Ознакомиться с наставниками', url='https://terra-bishkek.kg/')
