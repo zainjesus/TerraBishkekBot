@@ -11,7 +11,7 @@ async def qr_read(message: Message):
     gs = GoogleSheet()
     
     sheet = gs.service.spreadsheets()
-    result = sheet.values().get(spreadsheetId=GoogleSheet.SPREADSHEET_ID, range='Наставничество!A:F').execute()  
+    result = sheet.values().get(spreadsheetId=GoogleSheet.SPREADSHEET_ID, range='Наставничество!A:B').execute()  
     data = result.get('values', [])
     usernames = [row[1] for row in data]
 
@@ -22,11 +22,11 @@ async def qr_read(message: Message):
         
         sheet.values().update(
             spreadsheetId=GoogleSheet.SPREADSHEET_ID,
-            range=f'Наставничество!E{last_index+1}', 
+            range=f'Наставничество!G{last_index+1}', 
             valueInputOption='RAW',
             body={'values': [['Посетил']]}
         ).execute()
 
-        gs.updateCellBackground(f'E{last_index+1}', 'green')
+        gs.updateCellBackground(f'G{last_index+1}', 'green')
     else:
         await bot.send_message(message.from_user.id, "В таблице нет человека под таким юзернеймом!")

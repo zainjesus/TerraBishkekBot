@@ -35,3 +35,13 @@ cancel = ReplyKeyboardMarkup(
 )
 
 
+gender_kb = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text='Мужской'),
+            KeyboardButton(text='Женский')
+        ]
+    ]
+)
+
+
