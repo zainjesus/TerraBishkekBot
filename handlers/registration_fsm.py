@@ -32,8 +32,9 @@ async def reg(call: CallbackQuery, state: FSMContext):
     usernames = [row[1] for row in data] 
 
     if call.from_user.username is None:
-        await bot.send_message(call.from_user.id, "Чтобы зарегистрироваться на мероприятие, у вас должен быть включен ник в телеграм!\n"
-                               'Зайдите в свой профиль, нажмите на "имя пользователя" и задайте свой ник')
+        await bot.send_message(call.from_user.id, 'Чтобы зарегистрироваться на мероприятие, у вас должно быть задано'
+                                '"Имя пользователя" в телеграм!Зайдите в свой профиль, нажмите на "Имя пользователя"'
+                                'и задайте свое "Имя пользователя".')
     else:
         if f'@{call.from_user.username}' in usernames:
             indexes = [i for i, username in enumerate(usernames) if username == f'@{call.from_user.username}']
@@ -54,7 +55,7 @@ async def reg(call: CallbackQuery, state: FSMContext):
 @router.callback_query(F.data.startswith('reapet_reg'))
 async def reapet_reg(call: CallbackQuery, state: FSMContext):
     await state.set_state(Registraion.name)
-    await bot.send_message(call.message.chat.id, 'Для регистрации нужно ответить всего на 3 вопроса')
+    await bot.send_message(call.message.chat.id, 'Для регистрации нужно ответить всего на 5 вопросов')
     await bot.send_message(call.message.chat.id, '1️⃣ Напишите свою Фамилию и Имя (Пример: Иванов Иван)')
 
 
