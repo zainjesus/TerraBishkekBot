@@ -28,8 +28,9 @@ async def reg(call: CallbackQuery, state: FSMContext):
     result = sheet.values().get(spreadsheetId=GoogleSheet.SPREADSHEET_ID, range='Наставничество!A:G').execute()  
     data = result.get('values', [])
 
+
     usernames = [row[1] for row in data] 
-    print(usernames)
+
     if call.from_user.username is None:
         await bot.send_message(call.from_user.id, "Чтобы зарегистрироваться на мероприятие, у вас должен быть включен ник в телеграм!\n"
                                'Зайдите в свой профиль, нажмите на "имя пользователя" и задайте свой ник')
@@ -39,7 +40,6 @@ async def reg(call: CallbackQuery, state: FSMContext):
             index = indexes[-1]
             user_data = data[index]  
 
-            print(user_data)
             await bot.send_message(call.message.chat.id, f'Вы уже зарегистрированы! Ваши данные:\n'
                                                         f'Имя: {user_data[0]}\n'
                                                         f'Номер телефона: {user_data[4]}\n'
@@ -86,9 +86,12 @@ async def name_save(message: Message, state: FSMContext):
 
 @router.message(Registraion.age)
 async def name_save(message: Message, state: FSMContext):
-    await state.update_data(age=message.text)
-    await bot.send_message(message.from_user.id, '4️⃣ Напишите свой номер телефона (Пример: +966555555555)')
-    await state.set_state(Registraion.number)
+    if len(message.text) > 4 or message.text.isalpha():
+        await bot.send_message(message.from_user.id, "Укажите корректный возраст!")
+    else:
+        await state.update_data(age=message.text)
+        await bot.send_message(message.from_user.id, '4️⃣ Напишите свой номер телефона (Пример: +966555555555)')
+        await state.set_state(Registraion.number)
 
     
 @router.message(Registraion.number)
