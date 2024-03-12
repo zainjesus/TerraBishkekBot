@@ -70,7 +70,7 @@ async def cancel_reg(call: CallbackQuery, state: FSMContext):
 @router.message(Registraion.name)
 async def name_save(message: Message, state: FSMContext):
     await state.update_data(name=message.text)
-    await bot.send_message(message.from_user.id, '2️⃣Укажите свой пол', reply_markup=gender_kb)
+    await bot.send_message(message.from_user.id, '2️⃣ Укажите свой пол', reply_markup=gender_kb)
     await state.set_state(Registraion.gender)
 
 
@@ -80,14 +80,14 @@ async def name_save(message: Message, state: FSMContext):
             await bot.send_message(message.from_user.id, "Укажите свой пол!")
     else:  
         await state.update_data(gender=message.text)
-        await bot.send_message(message.from_user.id, '2️⃣ Укажите свой возраст', reply_markup=ReplyKeyboardRemove())
+        await bot.send_message(message.from_user.id, '3️⃣ Укажите свой возраст', reply_markup=ReplyKeyboardRemove())
         await state.set_state(Registraion.age)
 
 
 @router.message(Registraion.age)
 async def name_save(message: Message, state: FSMContext):
     await state.update_data(age=message.text)
-    await bot.send_message(message.from_user.id, '2️⃣ Напишите свой номер телефона (Пример: +966555555555)')
+    await bot.send_message(message.from_user.id, '4️⃣ Напишите свой номер телефона (Пример: +966555555555)')
     await state.set_state(Registraion.number)
 
     
@@ -97,7 +97,7 @@ async def number_save(message: Message, state: FSMContext):
         await bot.send_message(message.from_user.id, 'Введён некорректный номер')
     else:
         await state.update_data(number=message.text)
-        await bot.send_message(message.from_user.id, '3️⃣ Напишите свою нишу (Пример: Wildberries)')
+        await bot.send_message(message.from_user.id, '5️⃣ Напишите свою нишу (Пример: Wildberries)')
         await state.set_state(Registraion.niche)
 
 
