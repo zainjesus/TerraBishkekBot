@@ -8,6 +8,7 @@ from keyboard.inline import reg_ik
 from keyboard.reply import gender_kb
 import datetime
 import pyqrcode as qr
+from database.stats_db import insert_user, get_all_users
 
 router = Router()
 
@@ -33,8 +34,8 @@ async def reg(call: CallbackQuery, state: FSMContext):
 
     if call.from_user.username is None:
         await bot.send_message(call.from_user.id, 'Чтобы зарегистрироваться на мероприятие, у вас должно быть задано'
-                                '"Имя пользователя" в телеграм!Зайдите в свой профиль, нажмите на "Имя пользователя"'
-                                'и задайте свое "Имя пользователя".')
+                                ' "Имя пользователя" в телеграм! Зайдите в свой профиль, нажмите на "Имя пользователя"'
+                                ' и задайте свое "Имя пользователя".')
     else:
         if f'@{call.from_user.username}' in usernames:
             indexes = [i for i, username in enumerate(usernames) if username == f'@{call.from_user.username}']
@@ -135,3 +136,25 @@ async def niche_save(message: Message, state: FSMContext):
     last_cell = f'G{num_rows + 1}'
     gs.updateCellBackground(last_cell, "orange")
     await state.clear()
+
+    groups = {
+        "insta_official": "insta_official_reg",
+        "insta_roman": "insta_roman_reg",
+        "insta_nastavniki": "insta_nastavniki_reg",
+        "insta_wb": "insta_wb_reg",
+        "insta_sm": "insta_sm_reg",
+        "insta_shodim": "insta_shodim_reg",
+        "insta_repost": "insta_repost_reg",
+        "tg_official": "tg_official_reg",
+        "tg_chats": "tg_chats_reg",
+        "tg_ataliev": "tg_ataliev_reg",
+        "site": "site_reg",
+        "tiktok": "tiktok_reg",
+        "whatsapp": "whatsapp_reg"
+    }
+
+    for group, reg_table in groups.items():
+        users = await get_all_users(group)
+        if message.from_user.id in users:
+            await insert_user(reg_table, message.from_user.id)
+

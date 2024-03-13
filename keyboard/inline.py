@@ -27,5 +27,34 @@ reg_ik = InlineKeyboardMarkup(
 )
 
 
+services = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+           InlineKeyboardButton(text='Инстаграм', callback_data='insta_stats') 
+        ],
+        [
+           InlineKeyboardButton(text='Телеграм', callback_data='tg_stats') 
+        ],
+        [
+           InlineKeyboardButton(text='Сайт', callback_data='site_stats') 
+        ],
+        [
+           InlineKeyboardButton(text='Ватсап', callback_data='whats_stats') 
+        ],
+        [
+           InlineKeyboardButton(text='Просмотреть статистику за дни', callback_data='days') 
+        ],
+    ]
+)
+
+
+
+back_ik = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton(text='Назад', callback_data='back')
+        ]    
+    ]
+)
 
        
