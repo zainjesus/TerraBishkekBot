@@ -108,7 +108,7 @@ async def tiktok_stats(call: CallbackQuery):
     whats = await get_all_users('whatsapp')
     whats_reg = await get_all_users('whatsapp_reg')
     await bot.send_message(call.from_user.id, f"Метка whatsapp - {len(whats)}\n"
-                           f"Зарегистрировались по метке website - {len(whats_reg)}"
+                           f"Зарегистрировались по метке whatsapp - {len(whats_reg)}"
                            ,reply_markup=back_ik)
     await bot.delete_message(call.message.chat.id, call.message.message_id)
 
