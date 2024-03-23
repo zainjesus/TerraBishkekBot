@@ -117,7 +117,7 @@ async def tiktok_stats(call: CallbackQuery):
 async def another_stats(call: CallbackQuery):
     labels = [
         ('qr', 'qr', 'qr_reg'),
-        ('vents', 'events', 'events_reg'),
+        ('events', 'events', 'events_reg'),
     ]
 
     message_text = ""
