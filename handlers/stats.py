@@ -24,7 +24,7 @@ async def stats(message: Message):
     users = await sql_command_all()
     await bot.send_message(message.from_user.id, f'Общее количество пользователей - {len(users)}\n'
                            f'Пользователей зарегистрировались - {len(data)-1}\n\n'
-                           'Выберите с какого сервиса хотите просмотреть статистику, либо же просмотрите статистику за дни'
+                           'Выберите откуда хотите просмотреть статистику'
                            ,reply_markup=services)
 
 
@@ -41,7 +41,7 @@ async def stats(call: CallbackQuery):
     users = await sql_command_all()
     await bot.send_message(call.from_user.id, f'Общее количество пользователей - {len(users)}\n'
                            f'Пользователей зарегистрировались - {len(data)-1}\n\n'
-                           'Выберите с какого сервиса хотите просмотреть статистику', reply_markup=services)
+                           'Выберите откуда хотите просмотреть статистику', reply_markup=services)
     
 
 
@@ -63,7 +63,7 @@ async def insta_stats(call: CallbackQuery):
         reg_users = await get_all_users(reg_table) if reg_table else None
         message_text += f"Зашли по метке {label} - {len(users)}"
         if reg_users is not None:
-            message_text += f"\nЗарегистрировались по метке - {label} - {len(reg_users)}"
+            message_text += f"\nЗарегистрировались по метке {label} - {len(reg_users)}"
         message_text += "\n\n"
 
     await bot.send_message(call.from_user.id, message_text, reply_markup=back_ik)
@@ -96,7 +96,7 @@ async def tg_stats(call: CallbackQuery):
 async def site_stats(call: CallbackQuery):
     site = await get_all_users('site')
     site_reg = await get_all_users('site_reg')
-    await bot.send_message(call.from_user.id, f"Метка website - {len(site)}\n"
+    await bot.send_message(call.from_user.id, f"Зашли по метке website - {len(site)}\n"
                            f"Зарегистрировались по метке website - {len(site_reg)}"
                            ,reply_markup=back_ik)
     await bot.delete_message(call.message.chat.id, call.message.message_id)
@@ -107,11 +107,30 @@ async def site_stats(call: CallbackQuery):
 async def tiktok_stats(call: CallbackQuery):
     whats = await get_all_users('whatsapp')
     whats_reg = await get_all_users('whatsapp_reg')
-    await bot.send_message(call.from_user.id, f"Метка whatsapp - {len(whats)}\n"
+    await bot.send_message(call.from_user.id, f"Зашли по метке whatsapp - {len(whats)}\n"
                            f"Зарегистрировались по метке whatsapp - {len(whats_reg)}"
                            ,reply_markup=back_ik)
     await bot.delete_message(call.message.chat.id, call.message.message_id)
 
+
+@router.callback_query(F.data.startswith('another_stats'))
+async def another_stats(call: CallbackQuery):
+    labels = [
+        ('qr', 'qr', 'qr_reg'),
+        ('vents', 'events', 'events_reg'),
+    ]
+
+    message_text = ""
+    for label, group, reg_table in labels:
+        users = await get_all_users(group)
+        reg_users = await get_all_users(reg_table) if reg_table else None
+        message_text += f"зашли по метке {label} - {len(users)}"
+        if reg_users is not None:
+            message_text += f"\nЗарегистрировались по метке {label} - {len(reg_users)}"
+        message_text += "\n\n"
+
+    await bot.send_message(call.from_user.id, message_text, reply_markup=back_ik)
+    await bot.delete_message(call.message.chat.id, call.message.message_id)
 
 
 @router.callback_query(F.data.startswith('days'))

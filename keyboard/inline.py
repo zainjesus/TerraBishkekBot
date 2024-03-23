@@ -42,7 +42,10 @@ services = InlineKeyboardMarkup(
            InlineKeyboardButton(text='Ватсап', callback_data='whats_stats') 
         ],
         [
-           InlineKeyboardButton(text='Просмотреть статистику за дни', callback_data='days') 
+           InlineKeyboardButton(text='Другое', callback_data='another_stats') 
+        ],
+        [
+           InlineKeyboardButton(text='Статистика за дни', callback_data='days') 
         ],
     ]
 )

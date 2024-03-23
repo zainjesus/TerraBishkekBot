@@ -54,6 +54,10 @@ async def start(message: Message):
         await insert_user('site', message.from_user.id)
     if str(start_paramets) == 'whatsapp':
         await insert_user('whatsapp', message.from_user.id)
+    if str(start_paramets) == 'events':
+        await insert_user('events', message.from_user.id)
+    if str(start_paramets) == 'qr':
+        await insert_user('qr', message.from_user.id)
         
 
 @router.callback_query(F.data.startswith("wit"))
