@@ -12,6 +12,9 @@ start_ik = InlineKeyboardMarkup(
         [
             InlineKeyboardButton(text='Ознакомиться с наставниками', url='https://terra-bishkek.kg/')
         ],
+        [
+            InlineKeyboardButton(text='Связаться с поддержкой', callback_data="support")
+        ]
     ]
 )
 

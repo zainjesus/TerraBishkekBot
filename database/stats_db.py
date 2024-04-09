@@ -10,10 +10,10 @@ def sql_create_stats():
         print('База данных подключена!')
 
     tables = ["insta_official", "insta_roman", "insta_nastavniki", "insta_wb", "insta_sm", "insta_shodim", "insta_repost",
-              "tg_official", "tg_chats", "tg_ataliev", "site", "whatsapp", "events", "qr",
+              "tg_official", "tg_chats", "tg_ataliev", "site", "whatsapp", "events", "qr", "dordoy",
               
               "insta_official_reg", "insta_roman_reg", "insta_nastavniki_reg", "insta_wb_reg", "insta_sm_reg", "insta_shodim_reg", "insta_repost_reg",
-              "tg_official_reg", "tg_chats_reg", "tg_ataliev_reg", "site_reg", "whatsapp_reg",  "events_reg", "qr_reg"]
+              "tg_official_reg", "tg_chats_reg", "tg_ataliev_reg", "site_reg", "whatsapp_reg",  "events_reg", "qr_reg", "dordoy_reg"]
     for table in tables:
         db.execute(f"CREATE TABLE IF NOT EXISTS {table} (id INTEGER PRIMARY KEY, user_id INTEGER UNIQUE)")
     db.commit()

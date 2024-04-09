@@ -151,7 +151,8 @@ async def niche_save(message: Message, state: FSMContext):
         "site": "site_reg",
         "whatsapp": "whatsapp_reg",
         "events": "events_reg",
-        "qr": "qr_reg"
+        "qr": "qr_reg",
+        "dordoy": "dordoy_reg"
     }
 
     for group, reg_table in groups.items():

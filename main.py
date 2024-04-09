@@ -1,6 +1,6 @@
 import asyncio
 from config import dp, bot
-from handlers import client, registration_fsm, arrival_submit, distibution_fsm, stats
+from handlers import client, registration_fsm, arrival_submit, distibution_fsm, stats, support
 from common import utils
 import logging
 from database.db import sql_create
@@ -16,7 +16,8 @@ async def main():
         registration_fsm.router,
         arrival_submit.router,
         distibution_fsm.router,
-        stats.router
+        stats.router,
+        support.router
     )
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)

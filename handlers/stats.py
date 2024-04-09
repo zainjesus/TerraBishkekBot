@@ -116,8 +116,9 @@ async def tiktok_stats(call: CallbackQuery):
 @router.callback_query(F.data.startswith('another_stats'))
 async def another_stats(call: CallbackQuery):
     labels = [
-        ('qr', 'qr', 'qr_reg'),
         ('events', 'events', 'events_reg'),
+        ('qr', 'qr', 'qr_reg'),
+        ('dordoy', 'dordoy', 'dordoy_reg')
     ]
 
     message_text = ""

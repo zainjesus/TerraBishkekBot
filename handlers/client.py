@@ -58,6 +58,8 @@ async def start(message: Message):
         await insert_user('events', message.from_user.id)
     if str(start_paramets) == 'qr':
         await insert_user('qr', message.from_user.id)
+    if str(start_paramets) == 'dordoy':
+        await insert_user('dordoy', message.from_user.id)
         
 
 @router.callback_query(F.data.startswith("wit"))
