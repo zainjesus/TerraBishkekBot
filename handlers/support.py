@@ -10,7 +10,7 @@ router = Router()
 class SupportState(StatesGroup):
     message = State()
 
-group = "-4129796963"
+group = "-1002007093383"
 
 @router.callback_query(F.data.startswith('support'))
 async def support(call: CallbackQuery, state: FSMContext):
